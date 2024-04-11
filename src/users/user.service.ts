@@ -1,10 +1,12 @@
 import { IUserRepository } from './ports/user.repository.interface';
 import { User } from './entities/user.entity';
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly userRepository: IUserRepository) {}
+  constructor(
+    @Inject('IUserRepository') private userRepository: IUserRepository,
+  ) {}
 
   async create(user: User): Promise<User> {
     return this.userRepository.create(user);
