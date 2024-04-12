@@ -6,6 +6,7 @@ export class UserRepository implements IUserRepository {
 
   async create(user: User): Promise<User> {
     this.users.push(user);
+    console.log(this.users);
     return user;
   }
 

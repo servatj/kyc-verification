@@ -9,6 +9,7 @@ export class UserService {
   ) {}
 
   async create(user: User): Promise<User> {
+    console.log('UserService.create');
     return this.userRepository.create(user);
   }
 

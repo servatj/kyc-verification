@@ -1,9 +1,13 @@
 import { Module } from '@nestjs/common';
-import { KycService } from './kyc.service';
-import { KycController } from './kyc.controller';
+import { KYCService } from './kyc.service';
+import { KYCController } from './kyc.controller';
+import { KYCRepository } from './adapters/repositories/kyc.repository';
 
 @Module({
-  controllers: [KycController],
-  providers: [KycService],
+  controllers: [KYCController],
+  providers: [
+    KYCService,
+    { provide: 'IKYCRepository', useClass: KYCRepository },
+  ],
 })
-export class KycModule {}
+export class KYCModule {}

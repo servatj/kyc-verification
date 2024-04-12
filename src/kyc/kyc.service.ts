@@ -1,26 +1,18 @@
 import { Injectable } from '@nestjs/common';
-import { CreateKycDto } from './dto/create-kyc.dto';
-import { UpdateKycDto } from './dto/update-kyc.dto';
+import { KYC } from './entities/kyc.entity';
+import { IKYCRepository } from './ports/kyc.repository.interface';
 
 @Injectable()
-export class KycService {
-  create(createKycDto: CreateKycDto) {
-    return 'This action adds a new kyc';
+export class KYCService {
+  constructor(private kycRepository: IKYCRepository) {}
+
+  async submitKYC(userId: string, kycData: any): Promise<KYC> {
+    const kyc = new KYC(userId, kycData);
+    return this.kycRepository.createKYC(kyc);
   }
 
-  findAll() {
-    return `This action returns all kyc`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} kyc`;
-  }
-
-  update(id: number, updateKycDto: UpdateKycDto) {
-    return `This action updates a #${id} kyc`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} kyc`;
+  async checkKYCStatus(userId: string): Promise<string> {
+    const kyc = await this.kycRepository.findKYCByUserId(userId);
+    return kyc.status;
   }
 }
