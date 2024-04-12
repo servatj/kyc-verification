@@ -3,8 +3,8 @@ export class User {
   name: string;
   email: string;
   password: string;
-  role: string;
   isKycVerified: boolean;
+  role: string;
   created_at: Date;
   updated_at: Date;
 }
