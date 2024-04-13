@@ -1,9 +1,18 @@
 import { Module } from '@nestjs/common';
 import { UserModule } from './users/user.module';
-import { KycModule } from './kyc/kyc.module';
+import { KYCModule } from './kyc/kyc.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [UserModule, KycModule],
+  imports: [
+    UserModule,
+    KYCModule,
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: '.env',
+      expandVariables: true,
+    }),
+  ],
   controllers: [],
   providers: [],
 })

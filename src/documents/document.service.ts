@@ -19,11 +19,16 @@ export class DocumentService {
   }
 
   async getDocumentById(documentId: string): Promise<Document> {
-    return this.documentRepository.findById(documentId);
+    const document = this.documentRepository.findById(documentId);
+    if (!document) throw new Error('Document not found');
+    return document;
   }
 
   async getDocumentsByUserId(userId: string): Promise<Document[]> {
-    return this.documentRepository.findByUserId(userId);
+    if (!userId) throw new Error('User ID is required');
+    const document = this.documentRepository.findByUserId(userId);
+    if (!document) throw new Error('Document not found');
+    return document;
   }
 
   private parseDocumentType(documentType: string): string {
